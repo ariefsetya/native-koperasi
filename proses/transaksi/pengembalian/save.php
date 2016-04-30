@@ -2,69 +2,51 @@
 
 include '../../../config/koneksi.php';
 
-$nama = $_POST['nama'];
-$jenis_transaksi = $_POST['jenis_transaksi'];
-$angsuran = $_POST['angsuran'];
-$tanggal = $_POST['tanggal'];
-$jumlah_total = $_POST['jumlah_total'];
-$total_denda = $_POST['total_denda'];
-$jumlah_total = $_POST['jumlah_total'];
+$id = $_POST['id_angsuran'];
 $keterangan = $_POST['keterangan'];
 
 
-$simpan = $koneksi->prepare("INSERT INTO transaksi (
-							`nama` ,
-							`jenis_transaksi` ,
-							`angsuran` ,
-							`tanggal` ,
-							`jumlah_total` ,
-							`total_denda` ,
-							`keterangan`
-							)
-							VALUES (
-							'".$nama."',
-							'".$jenis_transaksi."',
-							'".$angsuran."',
-							'".$tanggal."',
-							'".$jumlah_total."',
-							'".$total_denda."',
-							'".$keterangan."'
-							
-							)");
-							
-							$simpan->execute();
-							
-							$last_id = $koneksi->lastInsertId();
-							
-							
-							for($i=1;$i<=$info_ke;$i++){
-								
-							$simpan = $koneksi->prepare("INSERT INTO transaksi (
-							`nama` ,
-							`jenis_transaksi` ,
-							`angsuran` ,
-							`tanggal` ,
-							`jumlah_total` ,
-							`total_denda` ,
-							`keterangan`
-							)
-							VALUES (
-							'".$nama."',
-							'".$jenis_transaksi."',
-							'".$angsuran."',
-							'".$tanggal."',
-							'".$jumlah_total."',
-							'".$total_denda."',
-							'".$keterangan."'
-							
-							)");
-							
-							$simpan->execute();
-								
-							}
-							
-							
-							header("location:http://localhost/koperasi/?m=pengembalian&p=all");
+$simpan = $koneksi->prepare("UPDATE 
+				transaksi 
+			SET
+				status='Lunas',
+				keterangan='".$keterangan."'
+			WHERE
+				id='".$id."'");
+		$simpan->execute();
+
+
+$anggota = $koneksi->prepare("SELECT*FROM transaksi WHERE id='".$id."'");
+$anggota->execute();
+
+$data = $anggota->fetch(PDO::FETCH_OBJ);
+$id_induk = $data->id_induk;
+
+$anggota = $koneksi->prepare("SELECT*FROM transaksi WHERE id='".$id_induk."'");
+$anggota->execute();
+
+$data = $anggota->fetch(PDO::FETCH_OBJ);
+$info_ke = $data->info_ke;
+
+$anggota = $koneksi->prepare("SELECT COUNT(id) as jumlah FROM transaksi WHERE id_induk='".$id_induk."' and status='Lunas'");
+$anggota->execute();
+
+
+$data = $anggota->fetch(PDO::FETCH_OBJ);
+$jumlah = $data->jumlah;
+
+if($info_ke==$jumlah){
+
+	$simpan = $koneksi->prepare("UPDATE 
+				transaksi 
+			SET
+				status='Lunas'
+			WHERE
+				id='".$id_induk."'");
+		$simpan->execute();
+}
+
+	header("location:http://localhost/koperasi/?m=pengembalian&p=all");
 
 
 ?>

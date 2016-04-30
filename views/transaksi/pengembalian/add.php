@@ -18,7 +18,8 @@
 
 		<div class="form-group">
 			<label>Anggota</label>
-			<select name="id_anggota" id="id_anggota" class="form-control">
+			<select name="id_anggota" id="id_anggota" onchange="get_pinjaman()" class="form-control">
+				<option value="">--Pilih Anggota--</option>
 			<?php
 			$anggota = $koneksi->prepare("SELECT * FROM anggota order by nama asc");
 			$anggota->execute();
@@ -37,13 +38,13 @@
 			
 		<div class="form-group">
 			<label>Pinjaman</label>
-			<select name="id_pinjaman" id="id_pinjaman" class="form-control">
+			<select name="id_pinjaman" id="id_pinjaman" onchange="get_angsuran()" class="form-control">
 				
 			</select>
 		</div>
 		<div class="form-group">
 			<label>Angsuran</label>
-			<select name="id_angsuran" id="id_angsuran" class="form-control">
+			<select name="id_angsuran" id="id_angsuran" onchange="get_detail_angsuran()"  class="form-control">
 				
 			</select>
 		</div>
@@ -62,7 +63,7 @@
 			<textarea  name="keterangan" id="keterangan" class="form-control" type="text"></textarea>
 		</div>
 		
-		<button type="submit" class="btn btn-primary">Simpan</button>
+		<button type="submit" class="btn btn-primary">Bayar</button>
 	<button class="btn btn-danger" type="cancel">Cancel</button>
 
   </form>
@@ -76,9 +77,35 @@
 		$.ajax({
 			url:'http://localhost/koperasi/proses/transaksi/pinjaman/get_pinjaman.php?id='+id_anggota,
 			type:'POST',
-			dataType:'json',
+			dataType:'html',
 			success:function(data){
 				$("#id_pinjaman").html(data);
+			}
+		});
+		
+	}
+	function get_angsuran(){
+		
+		var id_anggota = $("#id_pinjaman").val();
+		$.ajax({
+			url:'http://localhost/koperasi/proses/transaksi/pinjaman/get_angsuran.php?id='+id_anggota,
+			type:'POST',
+			dataType:'html',
+			success:function(data){
+				$("#id_angsuran").html(data);
+			}
+		});
+		
+	}
+	function get_detail_angsuran(){
+		
+		var id_anggota = $("#id_angsuran").val();
+		$.ajax({
+			url:'http://localhost/koperasi/proses/transaksi/pinjaman/get_detail_angsuran.php?id='+id_anggota,
+			type:'POST',
+			dataType:'html',
+			success:function(data){
+				$("#angsuran").val(data);
 			}
 		});
 		

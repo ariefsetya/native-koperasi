@@ -2,27 +2,32 @@
 
 include '../../../config/koneksi.php';
 
-$tanggal = $_POST['tanggal'];
-$nama = $_POST['nama'];
-$jenis_transaksi = $_POST['jenis_transaksi'];
+
+$id_anggota = $_POST['id_anggota'];
 $bulan = $_POST['bulan'];
-$jumlah_total = $_POST['jumlah'];
+$tahun = $_POST['tahun'];
+$id_jenis = $_POST['id_jenis'];
+$jumlah_total = $_POST['jumlah_total'];
 $keterangan = $_POST['keterangan'];
 
 
 $simpan = $koneksi->prepare("INSERT INTO transaksi (
-							`tanggal` ,
-							`nama` ,
+							`id_anggota` ,
 							`jenis_transaksi` ,
+							`status` ,
 							`bulan` ,
+							`tahun` ,
+							`info_ke` ,
 							`jumlah_total` ,
 							`keterangan`
 							)
 							VALUES (
-							'".$tanggal."',
-							'".$nama."',
-							'".$jenis_transaksi."',
+							'".$id_anggota."',
+							'Simpanan',
+							'Lunas',
 							'".$bulan."',
+							'".$tahun."',
+							'".$id_jenis."',
 							'".$jumlah_total."',
 							'".$keterangan."'
 							

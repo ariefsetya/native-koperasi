@@ -19,12 +19,10 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> <?php echo $_SESSION['nama'];?></a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="login/logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -48,7 +46,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="http://localhost/koperasi"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="<?php echo $url;?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                       
                         <li>
@@ -58,10 +56,10 @@
                                     <a href="#">Anggota <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li>
-                                            <a href="http://localhost/koperasi/index.php?m=anggota&p=add">Tambah Baru</a>
+                                            <a href="<?php echo $url;?>index.php?m=anggota&p=add">Tambah Baru</a>
                                         </li>
                                         <li>
-                                            <a href="http://localhost/koperasi/index.php?m=anggota&p=all">Semua Data</a>
+                                            <a href="<?php echo $url;?>index.php?m=anggota&p=all">Semua Data</a>
                                         </li>
 									</ul>
 								</li>
@@ -70,10 +68,10 @@
                                     <ul class="nav nav-third-level">
 								
                                         <li>
-                                            <a href="http://localhost/koperasi/index.php?m=karyawan&p=add">Tambah Baru</a>
+                                            <a href="<?php echo $url;?>index.php?m=karyawan&p=add">Tambah Baru</a>
                                         </li>
                                         <li>
-                                            <a href="http://localhost/koperasi/index.php?m=karyawan&p=all">Semua Data</a>
+                                            <a href="<?php echo $url;?>index.php?m=karyawan&p=all">Semua Data</a>
                                         </li>
                                     </ul>
                                     <!-- /.nav-third-level -->
@@ -88,10 +86,10 @@
                                     <a href="#">Pinjaman <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li>
-                                            <a href="http://localhost/koperasi/index.php?m=pinjaman&p=add">Tambah Baru</a>
+                                            <a href="<?php echo $url;?>index.php?m=pinjaman&p=add">Tambah Baru</a>
                                         </li>
                                         <li>
-                                            <a href="http://localhost/koperasi/index.php?m=pinjaman&p=all">Semua Data</a>
+                                            <a href="<?php echo $url;?>index.php?m=pinjaman&p=all">Semua Data</a>
                                         </li>
 									</ul>
 								</li>
@@ -99,51 +97,40 @@
 									<a href="#">Simpanan <span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
                                         <li>
-                                            <a href="http://localhost/koperasi/index.php?m=simpanan&p=add">Tambah Baru</a>
+                                            <a href="<?php echo $url;?>index.php?m=simpanan&p=add">Tambah Baru</a>
                                         </li>
                                         <li>
-                                            <a href="http://localhost/koperasi/index.php?m=simpanan&p=all">Semua Data</a>
+                                            <a href="<?php echo $url;?>index.php?m=simpanan&p=all">Semua Data</a>
                                         </li>
 									</ul>
 								</li>
 								<!-- /.nav-second-level -->
 								<li>
-								<a href="#">Pengembalian Simpanan <span class="fa arrow"></span></a>
+								<a href="#">Pengembalian Pinjaman <span class="fa arrow"></span></a>
 									<ul class="nav nav-third-level">
 										<li>
-                                            <a href="http://localhost/koperasi/index.php?m=pengembalian&p=add">Tambah Baru</a>
+                                            <a href="<?php echo $url;?>index.php?m=pengembalian&p=add">Tambah Baru</a>
                                         </li>
                                         <li>
-                                            <a href="http://localhost/koperasi/index.php?m=pengembalian&p=all">Semua Data</a>
+                                            <a href="<?php echo $url;?>index.php?m=pengembalian&p=all">Semua Data</a>
                                         </li>
 										<!-- /.nav-second-level -->
                                         </ul>
 								</li>
 							</ul>
 						</li>
-								
-						
-						<li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Keuangan<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-								<li>
-									<a href="http://localhost/koperasi/index.php?m=rekap">Rekap Keuangan</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
 						<li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Laporan<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
 										<li>
-                                            <a href="http://localhost/koperasi/index.php?m=laporan&p=pinjaman">Pinjaman</a>
+                                            <a href="<?php echo $url;?>index.php?m=laporan&p=pinjaman">Pinjaman</a>
                                         </li>
                                         <li>
-                                            <a href="http://localhost/koperasi/index.php?m=laporan&p=simpanan">Simpanan</a>
+                                            <a href="<?php echo $url;?>index.php?m=laporan&p=simpanan">Simpanan</a>
                                         </li>
 										<li>
-                                            <a href="http://localhost/koperasi/index.php?m=laporan&p=keuangan">Keuangan</a>
+                                            <a href="<?php echo $url;?>index.php?m=laporan&p=angsuran">Angsuran</a>
                                         </li>
 									</ul>
 								</li>	

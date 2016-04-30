@@ -16,6 +16,7 @@
 		<div class="form-group">
 			<label>Anggota</label>
 			<select name="id_anggota" class="form-control">
+			<option value="">--Pilih Anggota--</option>
 			<?php
 			$anggota = $koneksi->prepare("SELECT * FROM anggota order by nama asc");
 			$anggota->execute();

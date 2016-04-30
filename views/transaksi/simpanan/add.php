@@ -13,17 +13,28 @@
 		<div class="panel-body">
 		<div class="table-responsive">
 			<table class="table table-striped table-bordered table-hover">
-
-		
-			<label>Nama</label>
 		<div class="form-group">
-			<input  name="nama" id="nama" class="form-control" type="text" placeholder="Nama" name="nama" required="" autocomplete="off">
-		</div>
+			<label>Anggota</label>
+			<select name="id_anggota" class="form-control">
+				<option value="">--Pilih Anggota--</option>
+			<?php
+			$anggota = $koneksi->prepare("SELECT * FROM anggota order by nama asc");
+			$anggota->execute();
+			
+			$anggotas = $anggota->fetchAll();
+			foreach($anggotas as $key){
+
+				?>
+				<option value="<?php echo $key['id'];?>"><?php echo $key['nama'];?></option>
+				<?php
+			}
+			?>
+			</select>		</div>
 		
 		<label>Jenis Simpanan</label>
 		<div class="form-group">
 			<select name="id_jenis" id="id_jenis" class="form-control" required="" type="text">
-				<option value="" readonly="">Jenis Simpanan</option>
+				<option value="" readonly="">--Pilih Jenis Simpanan--</option>
 				<option value="1">Simpanan Pokok</option>
 				<option value="2">Simpanan Wajib</option>
 				<option value="3">Simpanan Sukarela</option>
@@ -33,7 +44,7 @@
 		<label>Bulan</label>
 		<div class="form-group">
 			<select  name="bulan" id="bulan" class="form-control" required type="text">
-				<option value="" readonly="">Bulan</option>
+				<option value="" readonly="">--Pilih Bulan--</option>
 				<option value="1">Januari</option>
 				<option value="2">Februari</option>
 				<option value="3">Maret</option>
@@ -49,13 +60,13 @@
 			</select>
 		</div>
 
-		<label>Jumlah</label>
-		<div class="">
-			<input id="jumlah_total" class="form-control" type="hidden" placeholder="Jumlah" name="jumlah_total" required="" value="0" autocomplete="off">
+		<label>Tahun</label>
+		<div class="form-group">
+			<input id="tahun" class="form-control" type="text" placeholder="Tahun" name="tahun" required="" value="<?php echo date("Y");?>" autocomplete="off">
 		</div>
-		
-		<div id="jumlah_div">
-			<input class="form-control" >
+		<label>Jumlah</label>
+		<div class="form-group">
+			<input id="jumlah_total" class="form-control" type="text" placeholder="Jumlah" name="jumlah_total" required="" value="0" autocomplete="off">
 		</div>
 		
 		<label>Keterangan</label>
@@ -68,44 +79,3 @@
 
   </form>
 </div>
-
-<script>
-
-	function hitung(){
-		
-		var jumlah_pinjaman = $("#jumlah_asli").val();
-		var jangka_waktu = $("#info_ke").val();
-		var bunga = $("#bunga").val();
-		var biaya_admin = $("#biaya_admin").val();
-		var biaya_materai = $("#biaya_materai").val();
-		var biaya_asuransi = $("#biaya_asuransi").val();
-		
-		if(jumlah_pinjaman!="" && bunga!=""){
-			var jumlah_bunga = (parseFloat(bunga)*parseFloat(jumlah_pinjaman))/100;
-			$("#jumlah_bunga").val(jumlah_bunga.toFixed(2));
-			
-		}
-		if(jumlah_pinjaman!="" && jangka_waktu!="" && bunga !="" && biaya_admin !="" && biaya_materai !=""
-			&& biaya_asuransi !=""){
-			
-			var jumlah_bunga = (parseFloat(bunga)*parseFloat(jumlah_pinjaman))/100;
-			var jumlah_pencairan = parseFloat(jumlah_pinjaman)-parseFloat(biaya_admin)-parseFloat(biaya_materai)-parseFloat(biaya_asuransi);
-			$("#total_peminjaman").val(jumlah_pencairan.toFixed(2));
-			
-			var jumlah_bunga = (parseFloat(bunga)*parseFloat(jumlah_pinjaman))/100;
-			$("#jumlah_bunga").val(jumlah_bunga.toFixed(2));
-			
-			var angsuran2 = parseFloat(jumlah_pinjaman)/parseFloat(jangka_waktu);
-			//console.log(jumlah_pinjaman);
-			//console.log(jangka_waktu);
-			var angsuran = parseFloat(angsuran2)+parseFloat(jumlah_bunga);
-			//console.log(angsuran);
-			$("#angsuran").val(angsuran.toFixed(2));
-			
-			var total_pengembalian = parseFloat(angsuran)*parseInt(jangka_waktu);
-			$("#jumlah_total").val(total_pengembalian.toFixed(2));
-			
-		}
-	}
-
-</script>
